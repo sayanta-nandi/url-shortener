@@ -5,178 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL Shortener</title>
-    <style>
-        /* Basic styling for the page */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f8ff;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Link to the external icon web -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-        /* Center the form on the page */
-        .container {
-            background: linear-gradient(145deg, #f7f7f7, #eaeaea);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            max-width: 450px;
-            width: 100%;
-            text-align: center;
-            margin-bottom: 30px;
-            margin-top: 30px;
-            transition: transform 0.3s ease;
-        }
-
-        .container:hover {
-            transform: scale(1.02);
-        }
-
-        h1 {
-            color: #4A90E2;
-            margin-bottom: 20px;
-            font-size: 28px;
-        }
-
-        /* Style the form elements */
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        input[type="url"] {
-            padding: 12px;
-            font-size: 18px;
-            margin-bottom: 20px;
-            border: 2px solid #4A90E2;
-            border-radius: 8px;
-            outline: none;
-            transition: border-color 0.3s ease;
-        }
-
-        input[type="url"]:focus {
-            border-color: #50C878;
-        }
-
-        button {
-            padding: 12px;
-            font-size: 18px;
-            color: white;
-            background-color: #50C878;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        button:hover {
-            background-color: #45b469;
-        }
-
-        /* Style the generated URL div */
-        .id-div {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #e8f8f5;
-            border: 2px solid #50C878;
-            border-radius: 10px;
-            color: #333;
-            font-size: 18px;
-        }
-
-        .id-div p {
-            margin: 0;
-            color: #4A90E2;
-            font-weight: bold;
-        }
-
-        a {
-            color: #50C878;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: #4A90E2;
-        }
-
-        /* Style the table */
-        .table-container {
-            width: 100%;
-            max-width: 800px;
-            margin-top: 30px;
-            margin-bottom: 30px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            text-align: left;
-            background-color: #fff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        table th,
-        table td {
-            padding: 16px;
-            border-bottom: 1px solid #eeeeee;
-            color: #333;
-        }
-
-        table th {
-            background-color: #4A90E2;
-            color: white;
-            text-transform: uppercase;
-        }
-
-        table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        table tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        /* Add responsiveness */
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-                max-width: 100%;
-            }
-
-            h1 {
-                font-size: 24px;
-            }
-
-            input[type="url"],
-            button {
-                font-size: 16px;
-            }
-
-            .id-div {
-                font-size: 16px;
-                padding: 14px;
-            }
-
-            table th,
-            table td {
-                font-size: 14px;
-                padding: 12px;
-            }
-        }
-    </style>
 </head>
 
 <body>
+    <!-- Header with signup and login links -->
+    <header>
+        <div class="auth-links">
+            <% if (locals.noUser) { %>
+                <a href="/login">
+                    <i class="fas fa-sign-in-alt auth-icon" style="color: #74C0FC;"></i> Log In
+                </a>
+                <a href="/signup">
+                    <i class="fas fa-user-plus auth-icon" style="color: #74C0FC;"></i> Sign Up
+                </a>
+            <% } else { %>
+                <a>
+                <i class="fa-solid fa-user auth-icon" style="color: #74C0FC;"></i> <%= createdBy %>
+                </a>
+                <a href="/logout">
+                    <i class="fa-solid fa-right-from-bracket auth-icon" style="color: #74C0FC;"></i> Log Out
+                </a>
+            <% } %>
+             
+        </div>
+    </header>
     <div class="container">
         <h1><a href="http://localhost:8001">Shorten Your URL</a></h1>
         <form action="/url" method="POST">
