@@ -1,13 +1,14 @@
 const express = require("express");
 const URL = require("../models/url");
+const { restricTo } = require("../middlewares/user");
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
     const user = req.user;
-    if(!user) return res.render("home",{
+    if(!user) return res.render("home", {
         noUser: true,
-    });
+    })
     const allurls = await URL.find({ createdBy: user._id });
     console.log(user.name);
     return res.render("home",{

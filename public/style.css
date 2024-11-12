@@ -12,13 +12,26 @@ body {
 }
 
 header {
+    
+}
+.logo{
+    display: flex;
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 10px;
+    left: 20px;
+}
+
+h1 {
+    color: #4A90E2;
+    margin: 0px;
+    font-size: 28px;
 }
 
 .auth-links {
     display: flex;
+    position: absolute;
+    top: 20px;
+    right: 20px;
     gap: 15px;
 }
 
@@ -55,7 +68,7 @@ header {
     transform: scale(1.02);
 }
 
-h1 {
+h2 {
     color: #4A90E2;
     margin-bottom: 20px;
     font-size: 28px;

@@ -15,6 +15,11 @@
 <body>
     <!-- Header with signup and login links -->
     <header>
+        <div class="logo">
+            <a href="/">
+                <h1>URL Shortener</h1>
+            </a>
+        </div>
         <div class="auth-links">
             <% if (locals.noUser) { %>
                 <a href="/login">
@@ -35,7 +40,7 @@
         </div>
     </header>
     <div class="container">
-        <h1><a href="http://localhost:8001">Shorten Your URL</a></h1>
+        <h2>Shorten Your URL</h2>
         <form action="/url" method="POST">
             <input type="url" name="url" placeholder="Enter your URL here" required>
             <button type="submit">Shorten URL</button>

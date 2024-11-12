@@ -2,15 +2,9 @@ const User = require("../models/user");
 const {setUser} = require("../service/auth");
 
 async function handleUserSignUp(req, res) {
-    const { name, email, password } = req.body;
-    await User.create({
-        name,
-        email,
-        password
-    });
-    return res.redirect("/login");
+    await User.create(req.body);
+    return handleUserLogIn(req, res);
 }
-
 async function handleUserLogIn(req, res) {
     const { email, password } = req.body;
     const user = await User.findOne({ email, password });
@@ -23,8 +17,6 @@ async function handleUserLogIn(req, res) {
     res.cookie("uid", token);
     return res.redirect("/");
 }
-
-
 
 module.exports = {
     handleUserSignUp,
